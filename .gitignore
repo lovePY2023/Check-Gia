@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env
+venv/
+.streamlit/
+data_store.json
+data_vattu.json
