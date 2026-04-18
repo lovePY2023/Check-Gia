@@ -16,7 +16,8 @@ except ImportError:
 
 def install_playwright():
     try:
-        subprocess.run(["playwright", "install", "chromium"])
+        # Install chromium and all necessary system dependencies
+        subprocess.run(["playwright", "install", "--with-deps", "chromium"])
     except:
         pass
 
