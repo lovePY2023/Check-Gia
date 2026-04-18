@@ -70,9 +70,10 @@ def scrape_vattu_logic():
             print(f"Lỗi khi quét {target['name']}: {e}")
             continue
         
+    
     if all_results:
-        with open(VATTU_FILE, "w", encoding="utf-8") as f:
-            json.dump(all_results, f, ensure_ascii=False, indent=4)
+        from storage import save_vattu_data
+        save_vattu_data(all_results)
     
     return all_results
 
