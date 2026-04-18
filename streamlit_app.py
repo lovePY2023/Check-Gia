@@ -6,9 +6,27 @@ import re
 from scraper import scrape_all_pages
 from scraper_vattu import scrape_vattu_logic
 from storage import get_previous_data, get_vattu_data, compare_data
+import subprocess
+
+# Auto-install playwright browsers if on Streamlit Cloud
+try:
+    import playwright
+except ImportError:
+    subprocess.run(["pip", "install", "playwright"])
+
+def install_playwright():
+    try:
+        subprocess.run(["playwright", "install", "chromium"])
+    except:
+        pass
 
 # Page config
 st.set_page_config(page_title="Minh Thành Intel - Máy lạnh & Vật tư", layout="wide")
+
+if 'playwright_installed' not in st.session_state:
+    with st.spinner("Đang khởi tạo trình duyệt... (Lần đầu có thể mất 1-2 phút)"):
+        install_playwright()
+        st.session_state['playwright_installed'] = True
 
 def parse_price(val):
     if not val: return 0
