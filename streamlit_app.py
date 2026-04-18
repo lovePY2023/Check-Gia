@@ -59,6 +59,7 @@ with st.sidebar:
                         st.write(f"- {c['name']}: {c['old_price']} -> {c['new_price']}")
                 else:
                     st.info("Dữ liệu không đổi.")
+                st.rerun()
             except Exception as e:
                 st.error(f"Lỗi: {e}")
 
