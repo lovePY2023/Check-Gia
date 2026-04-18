@@ -7,6 +7,7 @@ from scraper import scrape_all_pages
 from scraper_vattu import scrape_vattu_logic
 from storage import get_previous_data, get_vattu_data, compare_data
 import subprocess
+import os
 
 # Auto-install playwright browsers if on Streamlit Cloud
 try:
@@ -15,11 +16,8 @@ except ImportError:
     subprocess.run(["pip", "install", "playwright"])
 
 def install_playwright():
-    try:
-        # Install chromium and all necessary system dependencies
-        subprocess.run(["playwright", "install", "--with-deps", "chromium"])
-    except:
-        pass
+    os.system("python -m playwright install chromium")
+    os.system("python -m playwright install-deps chromium")
 
 # Page config
 st.set_page_config(page_title="Minh Thành Intel - Máy lạnh & Vật tư", layout="wide")
