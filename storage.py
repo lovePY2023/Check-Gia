@@ -5,13 +5,17 @@ from supabase import create_client, Client
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, "data_store.json")
 
-# Supabase Configuration
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+import streamlit as st
 
 def get_supabase():
-    if SUPABASE_URL and SUPABASE_KEY:
-        return create_client(SUPABASE_URL, SUPABASE_KEY)
+    try:
+        # Load from st.secrets or os.environ
+        url = st.secrets["SUPABASE_URL"] if "SUPABASE_URL" in st.secrets else os.environ.get("SUPABASE_URL")
+        key = st.secrets["SUPABASE_KEY"] if "SUPABASE_KEY" in st.secrets else os.environ.get("SUPABASE_KEY")
+        if url and key:
+            return create_client(url, key)
+    except Exception as e:
+        print(f"Lỗi khởi tạo Supabase: {e}")
     return None
 
 def get_previous_data():
